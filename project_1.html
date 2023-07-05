@@ -1,0 +1,146 @@
+<html> 
+  <head> 
+    <title> Phebe's Coding Showcases </title>
+    <script src = "https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"> </script>
+    <link rel = "stylesheet" href = "style.css">
+  </head>
+  <body>
+    <table class = "header-table">
+      <tr class = "header-tr">
+        <td class = "header-td">
+          <a href = "index.html"> Home </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 1 </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 2 </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 3 </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 4 </a>
+        </td>
+      </tr>
+    </table>
+    <h1 style = "text-align: center;"> Click Game </h1>
+    <script>
+      let screenNumber; let score; let img; let target1;
+      var preload = function(){
+        //var img = loadImage("https://www.nicepng.com/png/detail/5-50795_target-transparent-archery-shooting-sports.png");
+      }
+      var setup = function() {
+        if (windowWidth < windowHeight){
+          createCanvas(windowWidth - 20, windowWidth - 20);
+        }
+        else{
+          createCanvas(windowHeight - 20,  windowHeight - 20);
+        }
+              background(255);
+              imageMode(CENTER);
+              screenNumber = 0;
+              score = 0;
+              target = function() {
+              this.x = random(200, 300);
+              this.y = random(100, 200); 
+              this.speedX = random(-3, 3);
+              this.speedY = random(-3, 3);
+              this.radius = 100;
+              this.health = 25;
+              this.img = img;
+            };
+
+            target1 = new target();
+      }
+
+      var startScreen = function() {
+        background(0);
+        fill(255);
+        textAlign(CENTER);
+        textSize(150);
+        rectMode(CENTER);
+        text("Start", width/2, height*0.375);
+        fill(163, 205, 182);
+        rect(width/2, height*0.6, 200, 100);
+      };
+
+      var playingScreen = function() {
+        background(255);
+        //image(target1.img, target1.x, target1.y, 250, 250);
+        bullseye(target1.x, target1.y, 250);
+        target1.x += target1.speedX;
+        target1.y += target1.speedY;
+        if (target1.x > width || target1.x < 0) {
+          target1.speedX = -target1.speedX;
+        }
+        if(target1.y > height || target1.y < 0) {
+          target1.speedY = -target1.speedY;
+        }
+        fill(0);
+        textSize(50);
+        text(score, 40, 50); 
+        text("Target Health: " + target1.health, 200, height - 20);
+      };
+
+      var endScreen = function() {
+        background(255);
+        textSize(50);
+        text("Your total score is:", 200, 200);
+        text(score, 200, 300);
+      };
+
+      var bullseye = function(x, y, w){
+         noStroke();
+         fill(255, 0, 0);
+         ellipse(x, y, w, w);
+         fill(0, 200, 0);
+         ellipse(x, y, w - 61, w -61);
+         fill(150, 100, 0);
+         ellipse(x, y, w - 122, w - 122);
+         fill(0, 0, 200);
+         ellipse(x, y, w - 186, w - 186);
+      }
+
+      var draw = function(){
+        if (screenNumber === 0) {
+          startScreen();
+        }
+        else if(screenNumber === 1){
+          playingScreen();
+        }
+        else if(screenNumber === 2) {
+          endScreen();
+        }
+      };
+      var convert = function(num){
+        return map(num, 0, 400, 0, width);
+      };
+
+      var mouseClicked = function() {
+        if(screenNumber === 0 && mouseX >= convert(100) && mouseX <= convert(300) && mouseY >= convert(190) && mouseY <= convert(290)) {
+          screenNumber = 1;
+        }
+        var distance = dist(target1.x, target1.y, mouseX, mouseY);
+        if (distance < 125 && screenNumber === 1){
+          if(distance > 0 && distance <= 31) {
+            score += 10;
+          }
+          else if(distance > 32 && distance <= 63) {
+            score += 5;
+          }
+          else if(distance > 64 && distance <= 94) {
+            score += 3;
+          }
+          else if(distance > 94 && distance <= 125) {
+            score += 1;
+          }
+          target1.health -= 1;
+          if(target1.health <= 0) {
+            screenNumber = 2;
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
