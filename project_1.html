@@ -31,12 +31,14 @@
         //var img = loadImage("https://www.nicepng.com/png/detail/5-50795_target-transparent-archery-shooting-sports.png");
       }
       var setup = function() {
+        let cnv;
         if (windowWidth < windowHeight){
-          createCanvas(windowWidth - 20, windowWidth - 20);
+          cnv = createCanvas(windowWidth - 20, windowWidth - 20);
         }
         else{
-          createCanvas(windowHeight - 20,  windowHeight - 20);
+          cnv = createCanvas(windowHeight - 20,  windowHeight - 20);
         }
+        cnv.parent("canvas")
               background(255);
               imageMode(CENTER);
               screenNumber = 0;
@@ -142,5 +144,10 @@
         }
       };
     </script>
+    <div id = "canvas"> </div>
+    <h3> Description </h3>
+    <p>
+      Click the target to earn points. The closer to the centre you get, the higher the points.
+    </p>
   </body>
 </html>
