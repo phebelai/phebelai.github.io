@@ -1,0 +1,182 @@
+<html> 
+  <head> 
+    <title> Phebe's Coding Showcases </title>
+    <script src = "https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"> </script>
+    <link rel = "stylesheet" href = "style.css">
+  </head>
+  <body>
+    <table class = "header-table">
+      <tr class = "header-tr">
+        <td class = "header-td">
+          <a href = "index.html"> Home </a>
+        </td>
+        <td class = "header-td">
+          <a href = "/project_1.html"> Project 1 </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 2 </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 3 </a>
+        </td>
+        <td class = "header-td">
+          <a href = ""> Project 4 </a>
+        </td>
+      </tr>
+    </table>
+    <h1 style = "text-align: center;"> Brickbreaker Paddle </h1>
+    <script>
+      let P1Score; let P2Score; let scored; let Paddle; let Paddle2; let Ball; let hasWon;
+      var setup = function(){
+        let cnv;
+        if (windowWidth < windowHeight){
+                cnv = createCanvas(windowWidth - 20, windowWidth - 20);
+        }
+        else{
+                cnv = createCanvas(windowHeight - 20,  windowHeight - 20);
+        }
+        cnv.parent("canvas");
+        P1Score = 0;
+        P2Score = 0;
+        scored = false;
+        hasWon = false;
+
+        Paddle = {
+          x : 0,
+          y : windowHeight/2,
+          height : 81,
+          width : 17,
+        };
+
+        Paddle2 = {
+          x : convertX(380),
+          y : windowHeight/2,
+          height : 81,
+          width : 17,
+        };
+
+        Ball = {
+          xPos : random(windowWidth),
+          yPos : random(windowHeight),
+          xSpeed : (-5),
+          ySpeed : random(5),
+          movingBall : function() {
+              fill(0);
+              ellipse(Ball.xPos, Ball.yPos, 20, 20);
+              Ball.xPos = Ball.xPos + Ball.xSpeed;
+              Ball.yPos = Ball.yPos + Ball.ySpeed;
+          },
+          ballBounce : function() {
+              if(Ball.xPos < Paddle.x + Paddle.width && Ball.yPos > Paddle.y && Ball.yPos < Paddle.y + Paddle.height) {
+                  Ball.xSpeed = - Ball.xSpeed;
+              }
+              if(Ball.xPos > Paddle2.x && Ball.yPos > Paddle2.y && Ball.yPos < Paddle2.y + Paddle2.height) {
+                  Ball.xSpeed = - Ball.xSpeed;
+              }
+              if(Ball.yPos < 0 || Ball.yPos > windowHeight) {
+                  Ball.ySpeed = - Ball.ySpeed;
+              }
+          },
+        };
+      };
+
+      var movingPaddle = function() {
+          fill(mouseX, mouseY, 0);
+          rect(Paddle.x, Paddle.y, Paddle.width, Paddle.height);
+          Paddle.y = ( mouseY - Paddle.height / 2);
+          rect(Paddle2.x, Paddle2.y, Paddle2.width, Paddle2.height);
+      };
+
+      var keyPressed = function() {
+          if(keyCode === UP_ARROW && Paddle2.y > 10) {
+              Paddle2.y -= 30;
+          }
+          else if(keyCode === DOWN_ARROW && Paddle2.y < convertY(350)) {
+              Paddle2.y += 30;
+          }
+      };
+
+      var scoreboard = function() {
+          fill(0);
+          textSize(40);
+          textAlign(CENTER, CENTER);
+          text(P1Score, convertX(100), 60);
+          text(P2Score, convertX(300), 60);
+      };
+
+      var resetBall = function() {
+          if(Ball.xPos < convertX(-200)) {
+              Ball.xPos = convertX(100);
+              Ball.yPos = convertY(200);
+              Ball.xSpeed = -Ball.xSpeed;
+              scored = false;
+          }
+          else if(Ball.xPos > convertX(600)) {
+              Ball.xPos = convertX(300);
+              Ball.yPos = windowHeight/2;
+              Ball.xSpeed = -Ball.xSpeed;
+              scored = false;
+          }
+      };
+
+      var checkScore = function() {
+          if(Ball.xPos > convertX(400) && !scored) {
+              P1Score += 1;
+              scored = true;
+          }
+          else if (Ball.xPos < 0 && !scored) {
+              P2Score += 1;
+              scored = true;
+          }
+          resetBall();
+      };
+
+      var drawline = function() {
+          fill(0);
+          line(convertX(200), 0, convertX(200), windowHeight);
+      };
+
+      var convertX = function(num){
+              return map(num, 0, 400, 0, width);
+            };
+
+      var convertY = function(num){
+              return map(num, 0, 400, 0, height);
+            };
+      
+      var gameEnd = function() {
+        if (P1Score >= 50){
+          hasWon = true;
+        }
+        if (P2Score >= 50){
+          hasWon = true;
+        }
+      }
+
+      var draw = function() {
+        if(!hasWon) {
+          background(204, 252, 255);
+          movingPaddle();
+          Ball.movingBall();
+          Ball.ballBounce();
+          drawline();
+          scoreboard();
+          resetBall();
+          checkScore();
+          gameEnd();
+        }
+        else{
+          background(255)
+          text("End game.", convertX(200), convertY(200))
+          text("Player 1: " + P1Score, convertX(200), convertY(250));
+          text("Player 2: " + P2Score, convertX(200), convertY(300));
+        }
+      };
+    </script>
+    <div id = "canvas"> </div>
+    <h3> Description </h3>
+    <p>
+      This is a two player game. The left is controlled by the mouse and the right side by the up and down keyboard button. Use your paddles to make sure the ball does not go through your side. If it does, it is a point for the other player. The first player to reach 50 points wins.
+    </p>
+  </body>
+</html>
