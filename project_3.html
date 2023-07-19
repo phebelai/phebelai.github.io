@@ -26,7 +26,7 @@
     </table>
     <h1 style = "text-align: center;"> Infinite Runner </h1>
     <script>
-      let page; let playerImg1; let playerImg2; let imgX; let scrollSpeed; let score; let birds; let bird; let player;
+      let page; let playerImg1; let playerImg2; let imgX; let scrollSpeed; let score; let birds; let bird; let player; let backgroundImg;
       var setup = function(){
           let cnv;
           if (windowWidth < windowHeight){
@@ -57,6 +57,7 @@
             this.speed = random(-2, -5);
         };
         birds = [new bird()];
+        backgroundImg = loadImage("/clouds-from-plan.png");
       };
       
       var drawBirds = function() {
@@ -95,11 +96,11 @@
       var gamepage = function() {
           background(0);
           translate(imgX, 0);
-          image(loadImage("/clouds-from-plane.png"), 200, 200, 400, 400);
+          image(backgroundImg, 200, 200, 400, 400);
           resetMatrix();
           translate(imgX + 800, 0);
           scale(-1, 1);
-          image(loadImage("/clouds-from-plane.png"), 200, 200, 400, 400);
+          image(backgroundImg, 200, 200, 400, 400);
           resetMatrix();
           imgX -= scrollSpeed;
           if(imgX <= -400){
