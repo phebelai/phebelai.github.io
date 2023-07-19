@@ -43,21 +43,19 @@
         imgX = 0;
         scrollSpeed = 2;
         score = 0;
-      };
-
-      player = {
-          x : 100,
-          y : 330,
-          img : null,
-          jumpTime : 0,
-          jumping : false
-      };
-
-      bird = function() {
-          this.x = random(430, 500);
-          this.y = 330;
-          this.image = loadImage("/hummingbirds.png");
-          this.speed = random(-2, -5);
+        player = {
+            x : 100,
+            y : 330,
+            img : null,
+            jumpTime : 0,
+            jumping : false
+        };
+        bird = function() {
+            this.x = random(430, 500);
+            this.y = 330;
+            this.image = loadImage("/hummingbirds.png");
+            this.speed = random(-2, -5);
+        };
       };
 
       birds = [new bird()];
