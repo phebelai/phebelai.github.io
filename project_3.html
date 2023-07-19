@@ -37,14 +37,13 @@
           }
           cnv.parent("canvas");
         imageMode(CENTER);
+        page = 0;
+        playerImg1 = loadImage("/mickey.png");
+        playerImg2 = loadImage("/winnie.png");
+        imgX = 0;
+        scrollSpeed = 2;
+        score = 0;
       };
-      page = 0;
-      playerImg1 = loadImage("/mickey.png");
-      playerImg2 = loadImage("/winnie.png");
-      imgX = 0;
-      scrollSpeed = 2;
-
-      score = 0;
 
       player = {
           x : 100,
