@@ -83,7 +83,7 @@
       var startpage = function() {
           background(255);
           fill(255, 0, 0);
-          rect(57, 61, 120, 70);
+          rect(convertX(57), convertY(61), 120, 70);
           rect(convertX(229), convertY(61), 120, 70);
           fill(0);
           textSize(50);
@@ -160,11 +160,11 @@
       };
 
       var mouseClicked = function() {
-          if(mouseX > 57 && mouseY > 61 && mouseX < 177 && mouseY < 131 && page === 0) {
+          if(mouseX > convertX(57) && mouseY > convertY(61) && mouseX < convertX(177) && mouseY < convertY(131) && page === 0) {
               player.img = playerImg2;
               page = 1;
           }
-          if(mouseX >229 && mouseY > 61 && mouseX < 349 && mouseY < 131 && page === 0) {
+          if(mouseX > convertX(229) && mouseY > convertY(61) && mouseX < convertX(349) && mouseY < convertY(131) && page === 0) {
               player.img = playerImg1;
               page = 1;
           }
