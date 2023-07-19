@@ -56,10 +56,9 @@
             this.image = loadImage("/hummingbirds.png");
             this.speed = random(-2, -5);
         };
+        birds = [new bird()];
       };
-
-      birds = [new bird()];
-
+      
       var drawBirds = function() {
           for (var i = 0; i < birds.length; i ++) {
               image(birds[i].image, birds[i].x, birds[i].y, 50, 50);
