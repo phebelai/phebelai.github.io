@@ -95,11 +95,11 @@
       var gamepage = function() {
           background(0);
           translate(imgX, 0);
-          image(getImage("/clouds-from-plane.png"), 200, 200, 400, 400);
+          image(loadImage("/clouds-from-plane.png"), 200, 200, 400, 400);
           resetMatrix();
           translate(imgX + 800, 0);
           scale(-1, 1);
-          image(getImage("/clouds-from-plane.png"), 200, 200, 400, 400);
+          image(loadImage("/clouds-from-plane.png"), 200, 200, 400, 400);
           resetMatrix();
           imgX -= scrollSpeed;
           if(imgX <= -400){
