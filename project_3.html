@@ -44,15 +44,15 @@
         scrollSpeed = 2;
         score = 0;
         player = {
-            x : 100,
-            y : 330,
+            x : convertX(100),
+            y : convertY(330),
             img : null,
             jumpTime : 0,
             jumping : false
         };
         bird = function() {
-            this.x = random(430, 500);
-            this.y = 330;
+            this.x = random(convertX(430), convertX(500));
+            this.y = convertY(330);
             this.image = loadImage("/hummingbirds.png");
             this.speed = random(-2, -5);
         };
@@ -84,26 +84,26 @@
           background(255);
           fill(255, 0, 0);
           rect(57, 61, 120, 70);
-          rect(229, 61, 120, 70);
+          rect(convertX(229), convertY(61), 120, 70);
           fill(0);
           textSize(50);
-          text("Play", 70, 116);
-          text("Play", 243, 116);
-          image(playerImg2, 111, 250, 100, 100);
-          image(playerImg1, 300, 250, 100, 100);
+          text("Play", convertX(70), convertY(116));
+          text("Play", convertX(243), convertY(116));
+          image(playerImg2, convertX(111), convertY(250), 100, 100);
+          image(playerImg1, convertX(300), convertY(250), 100, 100);
       };
 
       var gamepage = function() {
           background(0);
           translate(imgX, 0);
-          image(backgroundImg, 200, 200, 400, 400);
+          image(backgroundImg, convertX(200), convertY(200), windowWidth, windowHeight);
           resetMatrix();
           translate(imgX + 800, 0);
           scale(-1, 1);
-          image(backgroundImg, 200, 200, 400, 400);
+          image(backgroundImg, windowWidth/2, windowHeihgt/2, windowWidth, windowHeight);
           resetMatrix();
           imgX -= scrollSpeed;
-          if(imgX <= -400){
+          if(imgX <= -windowWidth){
               imgX = 0;
           }
           image(player.img, player.x, player.y, 100, 100);
@@ -112,16 +112,16 @@
           checkCollision();
           textSize(30);
           fill(0);
-          text(score, 50, 50);
+          text(score, convertX(50), convertY(50));
       };
 
       var endpage = function() {
           background(123, 245, 255);
           textSize(50);
-          text("Game Over.", 70, 100);
-          text("score:", 150, 170);
+          text("Game Over.", convertX(70), windowHeight/4);
+          text("score:", convertX(150), convertY(170));
           textSize(100);
-          text(score, 180, 250);
+          text(score, convertX(180), convertY(250));
       };
 
       var jump = function() {
