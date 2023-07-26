@@ -103,7 +103,7 @@
           image(backgroundImg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
           resetMatrix();
           imgX -= scrollSpeed;
-          if(imgX <= -windowWidth){
+          if(imgX <= -windowWidth/2){
               imgX = 0;
           }
           image(player.img, player.x, player.y, 100, 100);
