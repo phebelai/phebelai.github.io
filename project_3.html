@@ -95,15 +95,15 @@
 
       var gamepage = function() {
           background(0);
-          translate(imgX, 0);
+          translate(convertX(imgX), 0);
           image(backgroundImg, convertX(200), convertY(200), windowWidth, windowHeight);
           resetMatrix();
-          translate(imgX + convertX(800), 0);
+          translate(convertX(imgX + 800), 0);
           scale(-1, 1);
-          image(backgroundImg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+          image(backgroundImg, convertX(200), convertY(200), windowWidth, windowHeight);
           resetMatrix();
           imgX -= scrollSpeed;
-          if(imgX <= -windowWidth/2){
+          if(imgX <= -400){
               imgX = 0;
           }
           image(player.img, player.x, player.y, 100, 100);
