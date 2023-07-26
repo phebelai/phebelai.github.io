@@ -96,11 +96,11 @@
       var gamepage = function() {
           background(0);
           translate(convertX(imgX), 0);
-          image(backgroundImg, convertX(200), convertY(200), windowWidth, windowHeight);
+          image(backgroundImg, convertX(200), convertY(200), convertX(400), convertY(400));
           resetMatrix();
           translate(convertX(imgX + 800), 0);
           scale(-1, 1);
-          image(backgroundImg, convertX(200), convertY(200), windowWidth, windowHeight);
+          image(backgroundImg, convertX(200), convertY(200), convertX(400), convertY(400));
           resetMatrix();
           imgX -= scrollSpeed;
           if(imgX <= -400){
@@ -118,7 +118,7 @@
       var endpage = function() {
           background(123, 245, 255);
           textSize(50);
-          text("Game Over.", convertX(70), windowHeight/4);
+          text("Game Over.", convertX(70), convertY(100));
           text("score:", convertX(150), convertY(170));
           textSize(100);
           text(score, convertX(180), convertY(250));
