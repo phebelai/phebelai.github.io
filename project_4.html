@@ -1,0 +1,150 @@
+<html> 
+  <head> 
+    <title> Phebe's Coding Showcases </title>
+    <script src = "https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"> </script>
+    <link rel = "stylesheet" href = "project_2_style.css">
+  </head>
+  <body>
+    <table class = "header-table">
+      <tr class = "header-tr">
+        <td class = "header-td">
+          <a href = "index.html"> Home </a>
+        </td>
+        <td class = "header-td">
+          <a href = "/project_1.html"> Project 1 </a>
+        </td>
+        <td class = "header-td">
+          <a href = "/project_2.html"> Project 2 </a>
+        </td>
+        <td class = "header-td">
+          <a href = "/project_3.html"> Project 3 </a>
+        </td>
+        <td class = "header-td">
+          <a href = "/project_4.html"> Project 4 </a>
+        </td>
+      </tr>
+    </table>
+    <h1 style = "text-align: center;"> Falling Ball </h1>
+    <script>
+       let manyObstacles; let gameOver; let holeSize; let obstacleHeight; let obstacleSpeed; let counter; let charY; let startTime; let endTime;let charX; let obstacle; let barrierColor;
+      var setup = function(){
+        let cnv;
+        if (windowWidth < windowHeight){
+          cnv = createCanvas(windowWidth - 20, windowWidth - 20);
+        }
+        else{
+            cnv = createCanvas(windowHeight - 20,  windowHeight - 20);
+        }
+        cnv.parent("canvas");
+        manyObstacles = [];
+        gameOver = false;
+        holeSize = 75;
+        obstacleHeight = 30;
+        obstacleSpeed = 2;
+        counter = 0;
+        charY = convertY(100);
+        startTime = millis();
+        endTime = 0;
+        charX = convertX(200);
+        obstacle = function(y){
+          this.width = convertX(random(75, 325));
+          this.start2 = this.width + holeSize;
+          this.y = y;
+        };
+        manyObstacles.push(new obstacle(convertY(400)));
+        manyObstacles.push(new obstacle(convertY(575)));
+        manyObstacles.push(new obstacle(convertY(725)));
+        fill(0);
+        ellipse(200, 200, 50, 50);
+        barrierColor = get(200, 200);
+      };
+
+      var deleteObstacles = function() {
+          if(manyObstacles[0].y < -obstacleHeight){
+              manyObstacles.splice(0, 1);
+              manyObstacles.push(new obstacle(convertY(450)));
+              if(random(0, 8) < 1){
+                  obstacleSpeed += 1;
+              }
+          }
+      };
+
+      var drawObstacle = function(){
+          for(var i = 0; i < manyObstacles.length; i++){
+              fill(0);
+              rect(0, manyObstacles[i].y, manyObstacles[i].width, obstacleHeight);
+              rect(manyObstacles[i].start2, manyObstacles[i].y, convertX(400), obstacleHeight);
+          }
+      };
+
+      var moveObstacles = function() {
+          for(var i = 0; i < manyObstacles.length; i ++){
+              manyObstacles[i].y -= obstacleSpeed;
+          }
+      };
+
+      var moveCharacter = function() {
+          fill(255, 0, 0);
+          ellipse(charX, charY, 60, 60);
+          if(get(charX, charY + 32).toString()[0] === "0"){
+              charY -= obstacleSpeed;
+          }
+          else if(charY < convertY(350)){
+              charY += obstacleSpeed;
+          }
+      };
+
+      var ceilingCollision = function() {
+          if(charY < 0){
+              gameOver = true;
+              endTime = millis();
+          }
+      };
+
+      var timer = function() {
+          fill(0, 0, 255);
+          textSize(20);
+          text((millis()-startTime)/1000, 30, 30);
+      };
+
+      var keyPressed = function() {
+          if(keyCode === RIGHT){
+              charX += 25;
+          }
+          if(keyCode === LEFT){
+              charX -= 25;
+          }
+      };
+
+      var convertX = function(num){
+        return map(num, 0, 400, 0, width);
+      };
+
+      var convertY = function(num){
+        return map(num, 0, 400, 0, height);
+      };
+
+      var draw = function() {
+          if(gameOver === false){
+              background(255);
+              drawObstacle();
+              moveObstacles();
+              deleteObstacles();
+              moveCharacter();
+              ceilingCollision();
+              timer();
+          }
+          else{
+              background(255, 0, 0);
+              textSize(100);
+              text((endTime-startTime)/1000, 50, 200);
+          }
+      };
+    </script>
+    <div id = "canvas"> </div>
+    <h3> Description </h3>
+    <p>
+      Use the left and right key to move the ball. If the ball hits the top of the canvas, it is game over. See how long you can keep up.
+    </p>
+  </body>
+</html>
